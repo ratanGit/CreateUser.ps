@@ -46,8 +46,8 @@ function createUser{
     
 # 0. User input
     $arrUsr = @{
-    'FirstName' = 'Bernard'
-    'LastName' = 'Han'
+    'FirstName' = 'Ratan'
+    'LastName' = 'Mohapatra'
     }
     $fname = $arrUsr['FirstName']
     $lname = $arrUsr['LastName']
