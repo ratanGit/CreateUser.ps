@@ -1,0 +1,35 @@
+if($midInitial -eq ""){
+    $UserFullName = ($fName).trim() +' '+ ($lName).trim()
+    }
+else{
+    $UserFullName = ($fName).trim() +' '+ $midInitial.trim() +' '+ ($lName).trim()
+    }
+$ouPath = ("OU=Users, OU=$unit, OU=$BaseOU, DC=$netBIOS, DC=$dom").ToString()
+$uSamAccName = ($fName[0] + $lName).ToString() + $uRole
+$upw = ConvertTo-SecureString $pwString -AsPlainText -Force
+
+$usrData = @{}
+$usrData =[PSCustomObject]@{
+    AccountPassword = $upw
+    ChangePasswordAtLogon = $false
+    City = $uCty
+    Country = $uCountry
+    Department = $unit
+    DisplayName = $UserFullName
+    EmailAddress = ($uSamAccName + '@' +$netBIOS.ToLower()+'.'+$dom.ToLower()).ToString()
+    GivenName = $fName
+    Initials = $midInitial   
+    MobilePhone = $uMobilePhone
+    Name = ($fName[0] +' '+ $lName).ToString()
+    OfficePhone = $uOfficePhone
+    Path = $ouPath
+    PostalCode = $uPostCode
+    SamAccountName = $uSamAccName
+    State = $uProv
+    Surname = $lName
+    StreetAddress = $uStreetAddress
+    Title = $uPosition
+    UserPrincipalName = ($uSamAccName + '@' +$netBIOS+'.'+$dom).ToLower()
+    }
+
+New-ADUser $usrData
